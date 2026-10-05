@@ -224,7 +224,7 @@ $etapa = $_SESSION['etapa'];
     <a href="recibo.php" class="recibo" id="reciboPapel">
         <img src="assets/papel.png" alt="">
         <div class="papel">
-            <h3>Clique aqui para pegar seu recibo</h3>
+            <h3>Clique aqui para pegar seu comprovante</h3>
         </div>
     </a>
 
