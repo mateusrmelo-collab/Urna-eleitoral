@@ -735,3 +735,214 @@ button {
         font-size: 12px;
     }
 }
+
+.btn-candidatos {
+    height: 60px;
+    width: 150px;
+    padding: 0 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 3px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.btn-candidatos:hover {
+    background-color: #777;
+}
+
+.btn-candidatos:active {
+    transform: scale(0.97);
+}
+
+.popup-candidatos {
+    width: 760px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.lista-candidatos {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.grupo-cargo {
+    border-top: 2px solid #222;
+    padding-top: 15px;
+}
+
+.grupo-cargo h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.candidatos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.item-candidato {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 82px;
+    padding: 9px;
+    background: #f5f5f5;
+    color: #111;
+    border: 1px solid #bbb;
+    text-align: left;
+    border-radius: 4px;
+}
+
+.item-candidato:hover {
+    background: #e8e8e8;
+    border-color: #222;
+}
+
+.item-candidato:active {
+    transform: scale(0.99);
+}
+
+.item-candidato img {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border: 1px solid #222;
+    flex-shrink: 0;
+}
+
+.item-candidato-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.item-candidato-texto strong {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item-candidato-texto small {
+    color: #555;
+    font-size: 12px;
+}
+
+.item-candidato-texto b {
+    font-size: 13px;
+}
+
+.recibo{
+    position: absolute;
+    top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    transform-origin: top;
+    z-index: 20;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.recibo img{
+    height: 150px;
+    width: 270px;
+    display: block;
+}
+
+.papel{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    width: 100%;
+}
+
+.papel h3{
+    position: absolute;
+    top: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    width: 200px;
+    line-height: 1.2;
+}
+
+.impressora{
+    position: absolute;
+    height: 4px;
+    background-color: #111;
+    width: 300px;
+    top: 50px;
+    z-index: 30;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.recibo.mostrar{
+    display: flex;
+    animation: imprimirPapel 1.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes imprimirPapel{
+    0%{
+        transform: translateY(-60px) scaleY(0.05);
+        opacity: 0;
+    }
+    20%{
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
+}
+
+.recibo:hover{
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4)) brightness(1.05);
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+
+@media (max-width: 650px) {
+
+    .candidatos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .popup-candidatos {
+        max-height: 90vh;
+    }
+
+    .lista-candidatos {
+        max-height: 72vh;
+    }
+
+    .btn-candidatos {
+        width: 140px;
+    }
+
+    .recibo{
+        top: 80px;
+    }
+
+    .impressora{
+        top: 78px;
+    }
+}

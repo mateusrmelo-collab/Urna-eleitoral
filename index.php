@@ -209,7 +209,27 @@ $etapa = $_SESSION['etapa'];
 <body>
 
 <main class="main">
+    <button
+        class="btn-candidatos"
+        type="button"
+        onclick="abrirCandidatos()"
+        title="Ver candidatos disponíveis">
 
+        CANDIDATOS
+
+    </button>
+
+    <div class="impressora"></div>
+
+    <a href="recibo.php" class="recibo" id="reciboPapel">
+        <img src="assets/papel.png" alt="">
+        <div class="papel">
+            <h3>Clique aqui para pegar seu recibo</h3>
+        </div>
+    </a>
+
+    <audio id="printerAudio" src="assets/printer.mp4" preload="auto"></audio>
+            
     <div class="telao">
 
         <?php if ($etapa === -1): ?>
@@ -530,6 +550,79 @@ $etapa = $_SESSION['etapa'];
     <div class="linha"></div>
     <div class="linha"></div>
     <div class="linha"></div>
+
+</div>
+
+<div
+    class="overlay"
+    id="overlayCandidatos">
+
+    <div class="popup popup-candidatos">
+
+        <button
+            class="fechar"
+            onclick="fecharCandidatos()">
+
+            ×
+
+        </button>
+
+        <h2>
+            Candidatos disponíveis
+        </h2>
+
+        <div class="lista-candidatos">
+
+            <?php foreach ($cargos as $indice => $cargo): ?>
+
+                <section class="grupo-cargo">
+
+                    <h3>
+                        <?php echo htmlspecialchars($cargo); ?>
+                    </h3>
+
+                    <div class="candidatos-grid">
+
+                        <?php foreach ($candidatos[$indice] as $numeroCandidato => $candidato): ?>
+
+                            <button
+                                type="button"
+                                class="item-candidato"
+                                onclick="selecionarCandidato('<?php echo htmlspecialchars($numeroCandidato, ENT_QUOTES); ?>')">
+
+                                <img
+                                    src="<?php echo htmlspecialchars($candidato['foto']); ?>"
+                                    alt="">
+
+                                <span class="item-candidato-texto">
+
+                                    <strong>
+                                        <?php echo htmlspecialchars($candidato['nome']); ?>
+                                    </strong>
+
+                                    <small>
+                                        <?php echo htmlspecialchars($candidato['partido']); ?>
+                                    </small>
+
+                                    <b>
+                                        Nº <?php echo htmlspecialchars($numeroCandidato); ?>
+                                    </b>
+
+                                </span>
+
+                            </button>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                </section>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -857,10 +950,11 @@ function confirmar() {
 
     if (
         numero.length === limites[etapaAtual] &&
+        candidatos[etapaAtual] &&
         candidatos[etapaAtual][numero]
     ) {
 
-        enviarVoto();
+        reproduzirConfirmacao();
 
         return;
     }
@@ -928,6 +1022,68 @@ function iniciar() {
     form.submit();
 }
 
+function abrirCandidatos() {
+
+    const overlay = document.getElementById("overlayCandidatos");
+
+    if (overlay) {
+        overlay.classList.add("aberto");
+    }
+}
+
+function fecharCandidatos() {
+
+    const overlay = document.getElementById("overlayCandidatos");
+
+    if (overlay) {
+        overlay.classList.remove("aberto");
+    }
+}
+
+function selecionarCandidato(numeroSelecionado) {
+
+    if (etapaAtual === -1) {
+        iniciar();
+        return;
+    }
+
+    if (
+        etapaAtual < 0 ||
+        etapaAtual >= limites.length
+    ) {
+        return;
+    }
+
+    numero = String(numeroSelecionado);
+
+    atualizarTela();
+    verificarCandidato();
+    fecharCandidatos();
+}
+
+function reproduzirConfirmacao() {
+
+    const audio = new Audio("assets/confirmacao.mp4");
+
+    audio.preload = "auto";
+
+    audio.addEventListener("ended", function () {
+        enviarVoto();
+    }, { once: true });
+
+    audio.addEventListener("error", function () {
+        enviarVoto();
+    }, { once: true });
+
+    const reproducao = audio.play();
+
+    if (reproducao !== undefined) {
+        reproducao.catch(function () {
+            enviarVoto();
+        });
+    }
+}
+
 function abrirInfo() {
 
     document
@@ -950,6 +1106,19 @@ document
 
             if (event.target === this) {
                 fecharInfo();
+            }
+
+        }
+    );
+
+document
+    .getElementById("overlayCandidatos")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === this) {
+                fecharCandidatos();
             }
 
         }
@@ -980,6 +1149,24 @@ document.addEventListener(
     }
 );
 
+function mostrarRecibo() {
+    const recibo = document.getElementById("reciboPapel");
+    const audio = document.getElementById("printerAudio");
+    if (recibo) {
+        recibo.classList.add("mostrar");
+    }
+    if (audio) {
+        audio.currentTime = 0;
+        const p = audio.play();
+        if (p !== undefined) {
+            p.catch(function(){});
+        }
+    }
+}
+
+if (etapaAtual >= limites.length) {
+    setTimeout(mostrarRecibo, 2000);
+}
 
 </script>
 

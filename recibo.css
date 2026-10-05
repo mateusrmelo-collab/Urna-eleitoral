@@ -1,0 +1,268 @@
+
+body{
+    background: #d8d8c8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.recibo-wrapper{
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.recibo-papel-real{
+    background: white;
+    border: 1px solid #222;
+    border-radius: 4px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    overflow: hidden;
+    position: relative;
+}
+.recibo-papel-real::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(90deg, #222 0 12px, transparent 12px 20px);
+}
+.recibo-header{
+    text-align: center;
+    padding: 35px 25px 20px;
+    border-bottom: 2px dashed #222;
+}
+.recibo-header img{
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+.recibo-header h1{
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+.recibo-header h2{
+    font-size: 15px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #333;
+    margin-bottom: 12px;
+}
+.recibo-header .subtitulo{
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.info-emissao{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 18px 25px;
+    background: #f8f8f3;
+    border-bottom: 1px dashed #aaa;
+    font-size: 12px;
+}
+.info-emissao div{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.info-emissao span{
+    font-size: 10px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.info-emissao strong{
+    font-size: 13px;
+    color: #111;
+}
+.info-protocolo{
+    grid-column: 1 / -1;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    margin-top: 4px;
+}
+.votos-lista{
+    padding: 20px 25px;
+}
+.votos-lista h3{
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    border-left: 4px solid #222;
+    padding-left: 10px;
+}
+.voto-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dotted #bbb;
+}
+.voto-item:last-child{
+    border-bottom: none;
+}
+.voto-cargo{
+    font-size: 12px;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+.voto-numero{
+    font-size: 11px;
+    color: #777;
+}
+.voto-candidato{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: right;
+}
+.voto-candidato img{
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #222;
+}
+.voto-candidato-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.voto-candidato-info strong{
+    font-size: 13px;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.voto-candidato-info small{
+    font-size: 11px;
+    color: #666;
+}
+.voto-branco-label{
+    font-size: 13px;
+    font-weight: bold;
+    color: #222;
+    background: #eee;
+    padding: 4px 10px;
+    border-radius: 3px;
+}
+.recibo-footer{
+    padding: 18px 25px;
+    background: #fafaf5;
+    border-top: 2px dashed #222;
+    text-align: center;
+}
+.recibo-footer .hash{
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    background: #222;
+    color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.recibo-footer p{
+    font-size: 10px;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+.acoes-recibo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.acoes-recibo button, .acoes-recibo a{
+    padding: 14px 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: 0.15s;
+}
+.btn-print{
+    background: #222;
+    color: white;
+    grid-column: 1 / -1;
+}
+.btn-print:hover{
+    background: #444;
+}
+.btn-pdf{
+    background: #1976d2;
+    color: white;
+}
+.btn-pdf:hover{
+    background: #125ca3;
+}
+.btn-txt{
+    background: #eee;
+    color: #222;
+    border: 1px solid #bbb !important;
+}
+.btn-txt:hover{
+    background: #ddd;
+}
+.btn-voltar{
+    background: white;
+    color: #222;
+    border: 1px solid #222 !important;
+}
+.btn-voltar:hover{
+    background: #f5f5f5;
+}
+.btn-novo{
+    background: #2e7d32;
+    color: white;
+}
+.btn-novo:hover{
+    background: #1b5e20;
+}
+.aviso-sem-voto{
+    padding: 40px 25px;
+    text-align: center;
+}
+.aviso-sem-voto p{
+    margin-bottom: 15px;
+    color: #555;
+}
+@media print{
+    body{
+        background: white;
+        padding: 0;
+    }
+    .acoes-recibo{
+        display: none !important;
+    }
+    .recibo-wrapper{
+        max-width: 80mm;
+        box-shadow: none;
+    }
+    .recibo-papel-real{
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+    }
+}
